@@ -1,0 +1,601 @@
+/* ============================================================
+   HIV Risk Map - Main Stylesheet
+   Cartographie des risques VIH chez les adolescents et jeunes
+   ============================================================ */
+
+/* ---- Layout ---- */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ---- Header ---- */
+#header {
+  background: linear-gradient(135deg, #1a3a5c 0%, #2c5f8a 100%);
+  color: #fff;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+#header h1 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+  max-width: 55%;
+}
+
+#header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---- Main content area ---- */
+#main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ---- Sidebar ---- */
+#sidebar {
+  width: 300px;
+  background: #fff;
+  border-right: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 500;
+  flex-shrink: 0;
+  transition: width 0.3s ease, transform 0.3s ease;
+}
+
+#sidebar.collapsed {
+  width: 0;
+  overflow: hidden;
+}
+
+#sidebar-inner {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ---- Search Section ---- */
+#search-section {
+  padding: 10px 12px;
+  border-bottom: 1px solid #dee2e6;
+  background: #f8f9fa;
+}
+
+#search-section h6 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+#search-input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#search-input:focus {
+  border-color: #2c5f8a;
+  box-shadow: 0 0 0 2px rgba(44, 95, 138, 0.2);
+}
+
+#search-results {
+  margin-top: 6px;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  display: none;
+  background: #fff;
+}
+
+.search-result-item {
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+
+.search-result-item:hover {
+  background: #e8f0fe;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-category {
+  font-size: 10px;
+  color: #888;
+  display: block;
+}
+
+/* ---- Filter Section ---- */
+#filter-section {
+  padding: 10px 12px;
+  border-bottom: 1px solid #dee2e6;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#filter-section h6 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.filter-group {
+  margin-bottom: 14px;
+}
+
+.filter-group-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: #999;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.filter-item:hover {
+  background: #f8f9fa;
+}
+
+.filter-item input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  accent-color: #2c5f8a;
+}
+
+.filter-item label {
+  font-size: 13px;
+  cursor: pointer;
+  flex: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.filter-count {
+  font-size: 11px;
+  color: #888;
+  background: #f0f0f0;
+  border-radius: 10px;
+  padding: 1px 6px;
+  margin-left: auto;
+}
+
+/* ---- Stats Section ---- */
+#stats-section {
+  padding: 10px 12px;
+  border-top: 1px solid #dee2e6;
+  background: #f8f9fa;
+  flex-shrink: 0;
+}
+
+#stats-section h6 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+}
+
+.stat-card .stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a3a5c;
+  line-height: 1;
+}
+
+.stat-card .stat-label {
+  font-size: 10px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.stat-total {
+  background: linear-gradient(135deg, #1a3a5c, #2c5f8a);
+  color: #fff;
+  border-color: transparent;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.stat-total .stat-value {
+  color: #fff;
+  font-size: 22px;
+}
+
+.stat-total .stat-label {
+  color: rgba(255,255,255,0.8);
+}
+
+/* ---- Map Container ---- */
+#map-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Map Controls Overlay ---- */
+#map-toolbar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.map-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: background 0.15s, color 0.15s;
+}
+
+.map-btn:hover {
+  background: #e8f0fe;
+  color: #1a3a5c;
+}
+
+.map-btn.active {
+  background: #1a3a5c;
+  color: #fff;
+  border-color: #1a3a5c;
+}
+
+/* ---- Layer Switcher ---- */
+#layer-switcher {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 900;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  font-size: 12px;
+  display: none;
+}
+
+#layer-switcher.visible {
+  display: block;
+}
+
+#layer-switcher label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 3px 0;
+  cursor: pointer;
+}
+
+#layer-switcher input[type="radio"] {
+  accent-color: #2c5f8a;
+}
+
+/* ---- Loading Overlay ---- */
+#loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#loading-overlay .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #dee2e6;
+  border-top-color: #2c5f8a;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+#loading-overlay p {
+  margin-top: 12px;
+  color: #555;
+  font-size: 14px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Sidebar Toggle Button ---- */
+#sidebar-toggle {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  width: 20px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 600;
+  font-size: 12px;
+  color: #666;
+  box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+  transition: left 0.3s ease;
+}
+
+#sidebar-toggle.sidebar-open {
+  left: 300px;
+}
+
+/* ---- Export Controls ---- */
+#export-bar {
+  background: #fff;
+  border-top: 1px solid #dee2e6;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+#export-bar label {
+  font-size: 12px;
+  color: #555;
+  margin: 0;
+}
+
+.export-btn {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.export-btn:hover {
+  background: #e8f0fe;
+  border-color: #2c5f8a;
+  color: #1a3a5c;
+}
+
+/* ---- Custom Popup Styles ---- */
+.custom-popup .leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 0;
+  overflow: hidden;
+}
+
+.custom-popup .leaflet-popup-content {
+  margin: 0;
+  width: 220px !important;
+}
+
+.popup-header {
+  padding: 10px 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.popup-body {
+  padding: 10px 12px;
+  font-size: 12px;
+}
+
+.popup-body .popup-field {
+  margin-bottom: 4px;
+}
+
+.popup-body .popup-label {
+  color: #888;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.popup-body .popup-value {
+  color: #333;
+  font-weight: 500;
+}
+
+.popup-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.badge-oui {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badge-non {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* ---- Color Definitions ---- */
+.color-red { background-color: #e74c3c; }
+.color-blue { background-color: #3498db; }
+.color-green { background-color: #27ae60; }
+.color-purple { background-color: #8e44ad; }
+.color-yellow { background-color: #f39c12; }
+
+.popup-header-red { background: #e74c3c; }
+.popup-header-blue { background: #3498db; }
+.popup-header-green { background: #27ae60; }
+.popup-header-purple { background: #8e44ad; }
+.popup-header-yellow { background: #f39c12; }
+
+/* ---- Header Button Styles ---- */
+.header-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.header-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ---- Commune filter ---- */
+#commune-select {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-top: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+#commune-select:focus {
+  border-color: #2c5f8a;
+}
+
+/* ---- Reset Filter Button ---- */
+#reset-filters {
+  width: 100%;
+  margin-top: 8px;
+  padding: 5px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #555;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+#reset-filters:hover {
+  background: #e8f0fe;
+  color: #1a3a5c;
+  border-color: #2c5f8a;
+}

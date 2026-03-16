@@ -1,5 +1,9 @@
 # Cartographie des risques VIH – Adolescents et Jeunes
 
+[![Deploy to GitHub Pages](https://github.com/riiseup08/crvtest.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/riiseup08/crvtest.github.io/actions/workflows/deploy.yml)
+
+**Live site:** https://riiseup08.github.io/crvtest.github.io/
+
 Interactive map of HIV risks and vulnerabilities among adolescents and youth in Cameroon.
 
 ## Features
@@ -41,6 +45,16 @@ Interactive map of HIV risks and vulnerabilities among adolescents and youth in 
 │   └── locations.json   Location data (GeoJSON FeatureCollection)
 └── README.md
 ```
+
+## Deployment
+
+The site is automatically deployed to **GitHub Pages** on every push to `main` via the
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) GitHub Actions workflow.
+
+To enable GitHub Pages for this repository for the first time:
+1. Go to **Settings → Pages** in the GitHub repository.
+2. Under **Source**, select **GitHub Actions**.
+3. Push to `main` — the workflow will build and publish the site automatically.
 
 ## Running Locally
 

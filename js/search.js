@@ -78,8 +78,8 @@ const SearchManager = (() => {
           display:inline-block;width:8px;height:8px;
           border-radius:50%;background:${meta.hex};
           margin-right:6px;vertical-align:middle"></span>
-        <strong>${highlight(name, query)}</strong>
-        <span class="search-result-category">${props.category} – ${highlight(commune, query)}</span>
+        <strong>${highlight(escapeHtml(name), escapeHtml(query))}</strong>
+        <span class="search-result-category">${escapeHtml(props.category)} – ${highlight(escapeHtml(commune), escapeHtml(query))}</span>
       `;
 
       div.addEventListener('click', () => {
@@ -104,9 +104,24 @@ const SearchManager = (() => {
   }
 
   /**
-   * Wrap matched text in a <mark> tag
-   * @param {string} text
-   * @param {string} query
+   * Escape HTML special characters to prevent XSS
+   * @param {string} str
+   * @returns {string}
+   */
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  /**
+   * Wrap matched text in a <mark> tag (applied to already-escaped text)
+   * @param {string} text   HTML-escaped text
+   * @param {string} query  raw user query
    * @returns {string}
    */
   function highlight(text, query) {

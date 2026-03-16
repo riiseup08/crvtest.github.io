@@ -40,6 +40,21 @@ const MapManager = (() => {
 
 
   /**
+   * Escape HTML special characters to prevent XSS
+   * @param {string} str
+   * @returns {string}
+   */
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  /**
    * Build an HTML popup string for a feature
    * @param {Object} feature
    * @returns {string}
@@ -53,28 +68,31 @@ const MapManager = (() => {
     if (p.commune) {
       body += `<div class="popup-field">
         <div class="popup-label">Commune</div>
-        <div class="popup-value">${p.commune}</div>
+        <div class="popup-value">${escapeHtml(p.commune)}</div>
       </div>`;
     }
 
     if (p.secteur) {
       body += `<div class="popup-field">
         <div class="popup-label">Secteur</div>
-        <div class="popup-value">${p.secteur}</div>
+        <div class="popup-value">${escapeHtml(p.secteur)}</div>
       </div>`;
     }
 
     if (p.description) {
       body += `<div class="popup-field">
         <div class="popup-label">Description</div>
-        <div class="popup-value">${p.description}</div>
+        <div class="popup-value">${escapeHtml(p.description)}</div>
       </div>`;
     }
 
     if (p.prevention !== undefined) {
-      const badgePrev = `<span class="popup-badge ${p.prevention === 'OUI' ? 'badge-oui' : 'badge-non'}">${p.prevention}</span>`;
-      const badgeTest = `<span class="popup-badge ${p.test_depistage === 'OUI' ? 'badge-oui' : 'badge-non'}">${p.test_depistage}</span>`;
-      const badgeArv  = `<span class="popup-badge ${p.dispensation_arv === 'OUI' ? 'badge-oui' : 'badge-non'}">${p.dispensation_arv}</span>`;
+      const prevVal = p.prevention === 'OUI' ? 'OUI' : 'NON';
+      const testVal = p.test_depistage === 'OUI' ? 'OUI' : 'NON';
+      const arvVal  = p.dispensation_arv === 'OUI' ? 'OUI' : 'NON';
+      const badgePrev = `<span class="popup-badge ${prevVal === 'OUI' ? 'badge-oui' : 'badge-non'}">${prevVal}</span>`;
+      const badgeTest = `<span class="popup-badge ${testVal === 'OUI' ? 'badge-oui' : 'badge-non'}">${testVal}</span>`;
+      const badgeArv  = `<span class="popup-badge ${arvVal  === 'OUI' ? 'badge-oui' : 'badge-non'}">${arvVal}</span>`;
 
       body += `<div class="popup-field"><div class="popup-label">Prévention</div><div>${badgePrev}</div></div>`;
       body += `<div class="popup-field"><div class="popup-label">Test de dépistage</div><div>${badgeTest}</div></div>`;
@@ -82,7 +100,7 @@ const MapManager = (() => {
     }
 
     return `
-      <div class="popup-header popup-header-${meta.color}">${p.category}</div>
+      <div class="popup-header popup-header-${meta.color}">${escapeHtml(p.category)}</div>
       <div class="popup-body">${body}</div>
     `;
   }
